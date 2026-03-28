@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, watch } from 'vue'
 import { useAIStore } from '@/stores/ai'
-import type { AIModel, AIProvider, AIConversation } from '@/types'
+import type { AIModel, AIProvider } from '@/types'
 
 const aiStore = useAIStore()
 
@@ -263,7 +263,7 @@ watch(() => aiStore.activeConversation?.messages.length, () => {
               >
                 <div class="conversation-info">
                   <span class="conversation-title">{{ conv.title }}</span>
-                  <span class="conversation-meta">{{ conv.messages.length}} 条消息</span>
+                  <span class="conversation-meta">{{ conv.messages.length }} 条消息</span>
                 </div>
                 <button class="btn btn-icon delete-btn" @click.stop="aiStore.deleteConversation(conv.id)">
                   🗑️
@@ -954,6 +954,20 @@ watch(() => aiStore.activeConversation?.messages.length, () => {
   align-items: flex-end;
 }
 
+.attach-btn {
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  border-radius: 8px;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.attach-btn:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
 .input-wrapper textarea {
   flex: 1;
   padding: 0.75rem 1rem;
@@ -972,20 +986,6 @@ watch(() => aiStore.activeConversation?.messages.length, () => {
 .input-wrapper textarea:focus {
   border-color: var(--accent-color);
   outline: none;
-}
-
-.attach-btn {
-  padding: 0.5rem;
-  font-size: 1.25rem;
-  border-radius: 8px;
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-  transition: all 0.2s;
-}
-
-.attach-btn:hover {
-  background: var(--accent-color);
-  color: white;
 }
 
 .input-wrapper textarea:disabled {

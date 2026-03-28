@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { AIModel, AIConversation, AIMessage, AIProvider } from '@/types'
+import type { AIModel, AIConversation, AIMessage } from '@/types'
 
 const STORAGE_KEY_MODELS = 'worktools_ai_models'
 const STORAGE_KEY_CONVERSATIONS = 'worktools_ai_conversations'
@@ -28,10 +28,6 @@ export const useAIStore = defineStore('ai', () => {
 
   function saveModels() {
     try {
-      const toSave = models.value.map(m => ({
-        ...m,
-        apiKey: m.apiKey ? '********' : undefined
-      }))
       localStorage.setItem(STORAGE_KEY_MODELS, JSON.stringify(models.value))
     } catch (e) {
       console.error('Failed to save models:', e)
@@ -270,7 +266,6 @@ export const useAIStore = defineStore('ai', () => {
       attachments
     })
 
-    const userMessage = conversation.messages[conversation.messages.length - 1]
     const assistantMessage = addMessage(conversationId, {
       role: 'assistant',
       content: ''
